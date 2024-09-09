@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apps", "Apps\Apps.csproj", "{C29DBC57-1E74-45C0-A14E-C5A4E2E27168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{30F4AC37-E446-4B8D-BC87-BA4880C450FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{D12991E0-0CD0-42CF-81F0-452370DD9A69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A2BA587-92B5-4D30-8121-440AA9727F43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D365Service", "Services\D365Service.csproj", "{2A8C311D-3516-44BA-9247-1F9C687EBA85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{16165C3A-703C-44EA-8695-470DBDA78F18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C29DBC57-1E74-45C0-A14E-C5A4E2E27168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29DBC57-1E74-45C0-A14E-C5A4E2E27168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29DBC57-1E74-45C0-A14E-C5A4E2E27168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29DBC57-1E74-45C0-A14E-C5A4E2E27168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A8C311D-3516-44BA-9247-1F9C687EBA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A8C311D-3516-44BA-9247-1F9C687EBA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A8C311D-3516-44BA-9247-1F9C687EBA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A8C311D-3516-44BA-9247-1F9C687EBA85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C29DBC57-1E74-45C0-A14E-C5A4E2E27168} = {30F4AC37-E446-4B8D-BC87-BA4880C450FC}
+		{2A8C311D-3516-44BA-9247-1F9C687EBA85} = {2A2BA587-92B5-4D30-8121-440AA9727F43}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44A3F6AA-7A70-4E2B-8AC5-02D430AE7822}
+	EndGlobalSection
+EndGlobal
