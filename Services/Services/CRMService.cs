@@ -167,7 +167,7 @@ namespace CentraCRM.D365Service.Services
             return false;
         }   // end of method CheckIfFieldIsEmptied()
 
-        public bool UpdateRecords(List<Entity> records)
+        public int UpdateRecords(List<Entity> records)
         {
             //
             // testing code:
@@ -181,12 +181,13 @@ namespace CentraCRM.D365Service.Services
 
                 // then we try to update and verify the results,
                 UpdateDummyContact();
-                return true;
+                return 1;
             }
             // end of testing
             //
 
             int counter = 0;    // for debugger purpose to get an idea how far it has gone in the iteration in the foreach loop
+            int updatedCount = 0;   // successfully updated counter
 
             // we only update the fields if they currently have no value
             foreach (var record in records)
@@ -195,7 +196,9 @@ namespace CentraCRM.D365Service.Services
                 {
                     // obtain the current state of the record, then remove fields that already has values from the updates
                     var rec = _orgService.Retrieve("contact", record.Id, new ColumnSet(true));
-                    
+
+                    // check if already has value, meaning someone has manually updated the record since the incident.
+                    // in which case we don't want to update again,
                     if (!string.IsNullOrEmpty(rec.GetAttributeValue<string>("firstname")))
                         record.Attributes.Remove("firstname");
                     if (!string.IsNullOrEmpty(rec.GetAttributeValue<string>("lastname")))
@@ -206,25 +209,30 @@ namespace CentraCRM.D365Service.Services
                         record.Attributes.Remove("telephone2");
                     if (!string.IsNullOrEmpty(rec.GetAttributeValue<string>("mobilephone")))
                         record.Attributes.Remove("mobilephone");
-                    if (rec.GetAttributeValue<OptionSetValue>("leadsourcecode") != null)
-                        record.Attributes.Remove("leadsourcecode");
-                    if (rec.GetAttributeValue<EntityReference>("new_campaign") != null)
-                        record.Attributes.Remove("new_campaign");
 
-                    return true; // we just want to see one for now!!!!!!!!!!
+                    // for Lead Source and Campaign (lookup) fields, we always want to overwrite, there comment out the following:
+                    //if (rec.GetAttributeValue<OptionSetValue>("leadsourcecode") != null)
+                    //    record.Attributes.Remove("leadsourcecode");
+                    //if (rec.GetAttributeValue<EntityReference>("new_campaign") != null)
+                    //    record.Attributes.Remove("new_campaign");
+
+                    //return 1; // we just want to see one for now!!!!!!!!!!
 
                     // updating the CRM record,
-//                    _orgService.Update(record);
+                    _orgService.Update(record);
+                    
+                    updatedCount++;
                 }
                 catch (Exception ex)
                 {
                     //log it somewhere and continue
+                    // updatedCount won't increment if it comes in here
                 }
 
                 counter++;
             }
 
-            return true;
+            return updatedCount;
         }   // end of method UpdateRecords()
 
         //

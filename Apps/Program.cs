@@ -97,28 +97,38 @@ namespace CentraCRM.Apps
     {
         static void Main(string[] args)
         {
+            int updatedCount = 0;
+
             Console.WriteLine("Do you want to perform a batch update job on CRM contacts? (Y/N)");
             var ans = Console.ReadLine();
 
             if (ans.ToLower() == "y")
             {
-                UpdateCRMContactsData();
+                Console.WriteLine("Start at: " + DateTime.Now);
+                
+                updatedCount = UpdateCRMContactsData();
+                
+                Console.WriteLine("Job completed at: " + DateTime.Now);
             }
             else
             {
                 Console.WriteLine("CRM contacts batch update job aborted.");
             }
 
+            Console.WriteLine("Number of contacts updated: " + updatedCount);
             Console.WriteLine("The program has finished running. Please press Enter to exit the program.");
             Console.ReadLine();
         }
 
-        private static void UpdateCRMContactsData()
+        private static int UpdateCRMContactsData()
         {
             CRMService crmService = new CRMService();
 
             // Read JSON string from a text file,
             string filePath = "contacts.json";
+
+            // i think it's probably better idea to break down into smaller file chunks, lets do say 2k updates at a time...etc.
+            filePath = "contacts_segmented.txt";
             string json = File.ReadAllText(filePath);
 
             // Deserialize JSON into List<Contact>,
@@ -128,7 +138,9 @@ namespace CentraCRM.Apps
             var contacts = ConvertToListEntity(contactModels);
 
             // Update CRM contact records,
-            var response = crmService.UpdateRecords(contacts);
+            var updatedCount = crmService.UpdateRecords(contacts);
+
+            return updatedCount;
         }
 
         private static List<Entity> ConvertToListEntity(List<Contact> contactModels)
@@ -153,10 +165,10 @@ namespace CentraCRM.Apps
 
                 if (!string.IsNullOrEmpty(contact.MobilePhone))
                     entity["mobilephone"] = contact.MobilePhone;
-                
+
                 if (!string.IsNullOrEmpty(contact.LeadSourceCode))
                     entity["leadsourcecode"] = new OptionSetValue(int.Parse(contact.LeadSourceCode));
-                
+
                 if (!string.IsNullOrEmpty(contact.CampaignId))
                     entity["new_campaign"] = new EntityReference("campaign", new Guid(contact.CampaignId));
 

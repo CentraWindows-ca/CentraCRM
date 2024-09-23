@@ -22,8 +22,12 @@ namespace CentraCRM.D365Service.Services
         private void ConnectToCRM()
         {
             // CRM connection string for IFD
+            // as Crm2013admin,
             string connectionString = "AuthType=IFD;Url=https://centra.centrawindows.com/Centra;" +
                                       "Domain=centrawindows;Username=centrawindows\\Crm2013admin;Password=Titan5010!;Organization=Centra;RequireNewInstance=true;";
+            // as Steve,
+            connectionString = "AuthType=IFD;Url=https://centra.centrawindows.com/Centra;" +
+                                      "Domain=centrawindows;Username=centrawindows\\swilkins;Password=Yanked1726354;Organization=Centra;RequireNewInstance=true;";
             //string connectionString = "AuthType=IFD;Url=https://centra.centrawindows.com/Centra;" +
             //                          "Username=centrawindows\\Crm2013admin;Password=Titan5010!;";
 
